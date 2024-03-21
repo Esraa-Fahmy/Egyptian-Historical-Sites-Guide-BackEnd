@@ -102,7 +102,7 @@ exports.updateSubCategory = asyncHandler(async (req, res, next) => {
 
   const subCategory = await subCategoryModel.findOneAndUpdate(
     { _id: id },
-    { name, slug: slugify(name), description, parentCategory  , image},
+    { name, description, parentCategory , image},
     { new: true }
   );
 

@@ -4,6 +4,29 @@ class ApiFeatures {
     this.queryString = queryString;
   }
 
+
+
+  
+  search() {
+    if (this.queryString.keyword) {
+      let query = {};
+      
+        query.$or = [
+          { name: { $regex: this.queryString.keyword, $options: 'i' } },
+          { description: { $regex: this.queryString.keyword, $options: 'i' } },
+        ];
+      
+
+      this.mongooseQuery = this.mongooseQuery.find(query);
+    }
+    return this;
+    
+  }
+
+
+
+
+
   filter() {
     const queryStringObj = { ...this.queryString };
     const excludesFields = ['page', 'sort', 'limit', 'fields'];
@@ -37,20 +60,8 @@ class ApiFeatures {
     return this;
   }
 
-  search() {
-    if (this.queryString.keyword) {
-      let query = {};
-      
-        query.$or = [
-          { title: { $regex: this.queryString.keyword, $options: 'i' } },
-          { description: { $regex: this.queryString.keyword, $options: 'i' } },
-        ];
-      
 
-      this.mongooseQuery = this.mongooseQuery.find(query);
-    }
-    return this;
-  }
+
 
   paginate(countDocuments) {
     const page = this.queryString.page * 1 || 1;

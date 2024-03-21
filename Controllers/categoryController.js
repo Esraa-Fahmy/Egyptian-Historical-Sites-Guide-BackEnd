@@ -83,7 +83,7 @@ exports.updateCategory = asyncHandler(async (req, res, next) => {
 
     const category = await categoryModel.findOneAndUpdate(
         { _id: id },
-        { name, description, image, slug: slugify(name) },
+        { name, description, image},
         { new: true }
     );
 

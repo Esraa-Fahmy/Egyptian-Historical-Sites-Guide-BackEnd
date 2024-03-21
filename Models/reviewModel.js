@@ -3,7 +3,7 @@ const Sites = require('./sitesModel');
 
 const reviewSchema = new mongoose.Schema(
     {
-      title: {
+      name: {
         type: String,
       },
       ratings: {
@@ -23,9 +23,9 @@ const reviewSchema = new mongoose.Schema(
         ref: 'Sites',
         required: [true, 'Review must belong to site'],
       },
-      image: [String], 
-      },
-    
+    image: String ,
+    },
+  
     { timestamps: true }
   ); 
 
@@ -42,8 +42,12 @@ const reviewSchema = new mongoose.Schema(
     if (doc.image) {
       const imageUrl = `${process.env.BASE_URL}/reviews/${doc.image}`;
       doc.image = imageUrl;
+    } else {
+      // If no image is present, you may choose to delete the 'image' property altogether
+      delete doc.image;
     }
   };
+  
   // findOne, findAll and update
   reviewSchema.post('init', (doc) => {
     setImageURL(doc);
@@ -112,3 +116,7 @@ reviewSchema.post('remove', async function () {
 
 
   module.exports = mongoose.model('Review', reviewSchema);
+
+
+
+

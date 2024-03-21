@@ -1,0 +1,199 @@
+//all main routes
+---------------------------------------------
+" Categories " 
+
+//get all categories or create category
+
+http://localhost:3000/api/categories
+
+//for get category by Id or Update on sepicifc category
+//or delete category   
+
+http://localhost:3000/api/categories/categoryId
+--------------------------------------------
+"subCategories"
+//get all subCategories or create subCategory
+
+http://localhost:3000/api/subCategories
+
+//for get subCategory by Id or Update on sepicifc subCategory
+//or delete subCategory
+
+http://localhost:3000/api/subCategories/subCategoryId
+
+-------------------------------------------
+// To get all subCategories from Regulies category by Category Id
+
+http://localhost:3000/api/categories/65f406176a7f8b5aacbd0140/subCategories
+
+-----------------------------------------
+"Sites"
+//get all sites or create site
+
+http://localhost:3000/api/sites
+
+//for get site by Id or Update on sepicifc site
+//or delete site
+http://localhost:3000/api/sites/siteId
+
+------------------------------------------
+// To get all sites from category Id
+
+http://localhost:3000/api/categories/categoryId/sites
+
+ // To get all sites from subCategory Id
+
+http://localhost:3000/api/subCategories/subCategoryId/sites
+--------------------------------------------
+ (Admin)
+
+//get all users or create user
+
+http://localhost:3000/api/users
+
+//for get user by Id or Update on sepicifc user
+//or delete user
+
+http://localhost:3000/api/users/userId
+
+------------------------------------------
+for Change password by admin :  -> give to body "password": "" 
+
+http://localhost:3000/api/users/changePassword/userId
+--------------------------------------------
+for signup => http://localhost:3000/api/auth/signup
+
+then give body like this 
+{
+    "name": "Youssef Mohsen",
+    "email": "youssef.mohsen277@gmail.com",
+    "password": "yusuf123",
+    "passwordConfirm": "yusuf123"
+}
+----------------------------------------
+
+then login from =>  http://localhost:3000/api/auth/login 
+
+then then give body like this :
+{
+ "email": "youssef.mohsen277@gmail.com",
+    "password": "yusuf123"
+}
+--------------------------------------
+when the user forget his password : use this
+
+ http://localhost:3000/api/auth/forgotPassword
+- then enter the "email" in the body
+like this =>
+{
+    "email": "youssef.mohsen277@gmail.com"
+}
+
+- then go to the page of virify code that will sent on email
+
+http://localhost:3000/api/auth/verifyResetCode   
+   => like this :
+ {
+   "resetCode": "676079"
+}
+
+- then go to the page for add new password 
+http://localhost:3000/api/auth/resetPassword
+
+and enter this : 
+
+{
+   "email": "youssef.mohsen277@gmail.com",
+   "newPassword": "123456"
+}
+
+then go to login again with email and password
+-----------------------------------
+for (user) :
+// how user get his logged data (اليوزر اللي عامل لوجن يعني )
+
+http://localhost:3000/api/users/getMe
+
+// how logged user update his data : http://localhost:3000/api/users/updateMe
+
+/how logged user delete his data : 
+http://localhost:3000//api/users/deleteMe
+
+
+//How logged user change his password:
+(logged user تعنى ان  يوزر عامل لوجن  )
+
+http://localhost:3000/api/users/changeMyPassword
+
+and enter to the body this : 
+{
+    "password":"esraafahmy123"
+}
+-------------------------------------
+// for reviews :
+// for get all reveiws or create review :
+
+http://localhost:3000/api/reviews
+
+//for update of review  by user or delete review by user and admin
+
+http://localhost:3000/api/reviews/reviewId
+---------------------------------------------------------------------
+// for Get all Reviews on one site from all sites
+
+http://localhost:3000//api/sites/siteId/reviews
+
+// for create Review on one site from all sites
+
+http://localhost:3000//api/sites/siteId/reviews
+--------------------------------------------
+wishlist :
+
+// to add site to your wishlist by user only 
+http://localhost:3000/api/wishlist
+
+
+// for delete site from wishlist 
+http://localhost:3000/api/wishlist/siteId
+
+// to get wishlist for logged user ( اليوزر ال عامل لوجن )
+
+http://localhost:3000/api/wishlist
+----------------------------------------------------------------
+
+admin premission : on category & sub categories & sites & users & reviews => 
+
+1- create category & subcategory & site & user 
+2- update category & subcategory & site & data of useradmin & changepassword
+3- get all category & sub categories & sites & users & reviews
+4- delete category & sub categories & sites & users & reviews
+5- get by id category & subcategory & site & user & review
+
+----------------------------------------
+logged user premission ( اليوزر اللي عامل لوجن ): => 
+
+1- get all category & sub categories & sites & users & reviews
+2- get by id category & sub categories & sites & users & reviews
+3- create review with comment and image
+4- update review
+5- delete review
+6- add site to his wishlist
+7- remove site from wishlist
+8- get his wishlist 
+9- get his data
+10- user can update on his data 
+11- user can delete his data 
+12- user can change his password
+---------------------------------------------
+category have { name, [image] , description ]
+
+subCategory have { name, [image] , description, parentCategory }
+
+site have {{ name, [image] , description, parentCategory, subCategory, [images], ratingQuantity, ratingAverage }
+
+user have { name , email , password, phone(optional), profileImage(optional), active , wishlist [Sites] }
+
+review have {name, user , site , [image] }
+
+
+

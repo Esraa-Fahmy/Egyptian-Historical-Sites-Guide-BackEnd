@@ -7,7 +7,6 @@ const {
   deleteUser,
   uploadUserProfileImage,
   resizeImage,
-  changeUserPassword,
   getLoggedUserData,
   updateLoggedUserPassword,
   updateLoggedUserData,
@@ -19,7 +18,6 @@ const {
   updateUserValidation,
   deleteUserValidation,
   getUserValidation,
-  //changeUserPasswordValidator
   updateLoggedUserDataValidation
 } = require("../shared/validators/userValidator");
 
@@ -28,7 +26,7 @@ const authService = require("../Controllers/authController");
 
 
 
-// for user
+// for user and admin
 router.get('/getMe', authService.protect, getLoggedUserData, getUser);
 router.put('/changeMyPassword', authService.protect, updateLoggedUserPassword);
 router.put('/updateMe', authService.protect, updateLoggedUserDataValidation, updateLoggedUserData);
@@ -39,12 +37,6 @@ router.delete('/deleteMe', authService.protect, deleteLoggedUserData);
 
 
 
-
-
-
-
-//route for change password by admin
-router.put('/changePassword/:id', /*changeUserPasswordValidator*/ changeUserPassword);
 
 
 router.get("/", authService.protect,

@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const sequanceModel = require("../Models/sequanceModel");
 const sitesSchema = new mongoose.Schema(
   {
     siteId: {
@@ -7,7 +6,7 @@ const sitesSchema = new mongoose.Schema(
       unique: true,
       index: true,
     },
-    title: {
+    name: {
       type: String,
       required: true,
       trim: true,
@@ -32,7 +31,7 @@ const sitesSchema = new mongoose.Schema(
         "This description is very large and should not exceed 2000 words",
       ],
     },
-    imageCover: {
+    image: {
       type: [String],
       required: [true, "Site image cover is required"],
     },
@@ -96,9 +95,9 @@ sitesSchema.pre("find", function (next) {
 
 //set Image URL
 const setImageUrl = (doc) => {
-  if (doc.imageCover) {
-    const imageUrl = `${process.env.BASE_URL}/sites/${doc.imageCover}`;
-    doc.imageCover = imageUrl;
+  if (doc.image) {
+    const imageUrl = `${process.env.BASE_URL}/sites/${doc.image}`;
+    doc.image = imageUrl;
   }
   if (doc.images) {
     const imagesList = [];

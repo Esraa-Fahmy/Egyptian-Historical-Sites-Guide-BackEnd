@@ -14,10 +14,11 @@ const authRoute = require("./Routes/authRoute");
 const reviewRoute = require('./Routes/reviewRoute');
 const wishlistRoute = require('./Routes/wishlistRoute')
 const cors = require("cors");
-const rateLimit = require('express-rate-limit');
+//const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
+
 
 
 
@@ -91,7 +92,7 @@ app.all("*", (req, res, next) => {
 app.use(errorGlobal);
 
 const PORT = process.env.PORT || 3000;
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT,() => {
   console.log(`App running on PORT ${PORT}`);
 });
 
