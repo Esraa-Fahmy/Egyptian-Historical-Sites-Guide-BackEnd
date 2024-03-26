@@ -98,7 +98,7 @@ exports.getAllSites = asyncHandler(async (req, res) => {
 exports.getSiteById = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
 
-  try {
+  //try {
     const site = await Sites.findById(id)
       .populate({
         path: "parentCategory",
@@ -112,10 +112,10 @@ exports.getSiteById = asyncHandler(async (req, res, next) => {
 
     // Return the site data
     res.status(200).json({ data: site });
-  } catch (error) {
-    return next(new ApiError("Internal Server Error", 500));
-  }
-});
+  } //catch (error) {
+    ////return next(new ApiError("Internal Server Error", 500));
+  //}
+);
 
 // Create new site
 exports.createNewSite = asyncHandler(async (req, res) => {
@@ -145,19 +145,18 @@ async function getNextSiteId() {
 
 exports.updateSite = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  if (req.body.name) {
-    req.body.slug = slugify(req.body.name);
-  }
-  const site = await Sites.findOneAndUpdate({ _id: id }, req.body, {
-    new: true,
-  });
+  const { name, description, image, parentCategory, subCategory } = req.body;
 
-  if (!site) {
-    return next(new ApiError(`There is no site for this id ${id}`, 404));
-  }
+    // Find the site by ID and update it
+    const site = await Sites.findByIdAndUpdate(id, { name, description, image, parentCategory, subCategory }, { new: true });
 
-  res.status(200).json({ data: site });
-});
+    if (!site) {
+      return res.status(404).json({ success: false, message: `No site found for ID ${id}` });
+    }
+
+    res.status(200).json({ success: true, data: site });
+  } );
+
 
 // Delete site by id
 exports.deleteSite = factory.deleteOne(Sites);
